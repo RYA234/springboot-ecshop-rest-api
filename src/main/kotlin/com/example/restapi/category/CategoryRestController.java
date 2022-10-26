@@ -13,8 +13,8 @@ public class CategoryRestController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/api/categories")
-    public List<Category> listAll(){
+    @GetMapping("/api/category/all")
+    public List<CategoryDto> listAll(){
         return categoryService.listAll();
     }
 }
