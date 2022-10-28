@@ -1,12 +1,7 @@
-package com.example.restapi.category;
+package com.example.restapi.implement.category;
 
-import com.example.restapi.entity.Category;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.HashSet;
 
 @Data
