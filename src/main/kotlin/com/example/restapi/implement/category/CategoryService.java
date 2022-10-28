@@ -1,13 +1,12 @@
-package com.example.restapi.category;
+package com.example.restapi.implement.category;
 
-import com.example.restapi.entity.Category;
+import com.example.restapi.domain.category.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +33,10 @@ public class CategoryService {
         }
         return CategoryDtoList;
     }
+
+    public CategoryDto findById(int categoryId){
+       return  this.mapToDTO(categoryRepository.findById(categoryId));
+    }
     // convert Entity into DTO
     private CategoryDto mapToDTO(Category category){
         CategoryDto categoryDto = new CategoryDto();
@@ -53,7 +56,5 @@ public class CategoryService {
         categoryDto.setParent(categoryDto.getParent());
         return category;
     }
-
-
 
 }
