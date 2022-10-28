@@ -1,4 +1,4 @@
-package com.example.restapi.entity;
+package com.example.restapi.domain.category;
 
 import lombok.*;
 import org.hibernate.Hibernate;
