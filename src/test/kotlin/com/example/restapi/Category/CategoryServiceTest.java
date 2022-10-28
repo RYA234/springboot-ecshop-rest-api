@@ -1,24 +1,30 @@
 package com.example.restapi.Category;
 
-import com.example.restapi.category.CategoryDto;
-import com.example.restapi.category.CategoryService;
+import com.example.restapi.implement.category.CategoryDto;
+import com.example.restapi.implement.category.CategoryRepository;
+import com.example.restapi.implement.category.CategoryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.TestComponent;
-import org.springframework.stereotype.Component;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
 public class CategoryServiceTest {
-    @Autowired
+
+    @MockBean
+    private CategoryRepository repo;
+    @InjectMocks
     private CategoryService categoryService;
-    // ToDo CategorySevice nullになるのでテストできない　原因は不明
+
     @Test
     @DisplayName("CategoryDtoにChildrenが付与されたか確認")
     public void CheckIfAddChildren(){
@@ -33,6 +39,7 @@ public class CategoryServiceTest {
 
         HashSet<Integer> firstChildren = new HashSet<>();
         firstChildren.add(2);
+
         if( (categoryService.addChilren(beforeCategoryDtoList)).get(0).getChildren() == firstChildren){
             System.out.println("good");
         }
