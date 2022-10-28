@@ -26,7 +26,7 @@ public class ProductServiceImplement implements ProductService {
         List<Product> productsList = products.getContent();
 
         // convert to ProductDto to ProductResponse
-        List<ProductDto> content = productsList.stream().map(this::mapToDTO).collect(Collectors.toList());
+        List<ProductDto> content = productsList.stream().map(product -> mapToDTO(product)).collect(Collectors.toList());
         ProductResponse productResponse = new ProductResponse();
         productResponse.setContent(content);
         productResponse.setPageNo(products.getNumber());
