@@ -12,11 +12,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ *
+ * @brief: This Class is Service class in Architecture Controller-Service-Repository Pattern
+ *
+ * @description　Add business logic to data obtained from ProductRepositories.
+ *               The data transfer to ProductRestController.
+ *
+ * @Auther RYA234
+ *
+ * @Entity: {@link  Product}
+ * @UseCase: {@link ProductService}
+ */
 @Service
 public class ProductServiceImplement implements ProductService {
     @Autowired
     ProductRepository productRepository;
+
 
     @Override
     public ProductResponse getProductsByCategory(int pageNo,int pageSize,int CategoryId){

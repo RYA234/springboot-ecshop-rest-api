@@ -1,11 +1,25 @@
 package com.example.restapi.implement.product;
 
+import com.example.restapi.domain.product.Product;
+import com.example.restapi.domain.product.ProductService;
 import com.example.restapi.implement.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ *
+ * @brief: This Class is RestController class in Architecture Controller-Service-Repository Pattern
+ *
+ * @description　
+ *
+ *
+ * @Auther RYA234
+ *
+ * @Entity: {@link  Product}
+ * @UseCase: {@link ProductService}
+ */
 @RestController
 public class ProductRestController {
 
