@@ -32,7 +32,7 @@ public class ProductServiceTest {
     private ProductServiceImplement productServiceImplement;
 
     @Test
-    @DisplayName("00.getProductByCategoryで")
+    @DisplayName("000.getProductByCategoryのPagenationの変数（PageNoとPageSize）をテスト")
     public void getProductByCategoryCheck(){
         int pageNo = 0;
         int pageSize = 4;

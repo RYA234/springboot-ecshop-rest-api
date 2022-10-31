@@ -38,6 +38,13 @@ public class ProductServiceImplement implements ProductService {
         return productResponse;
     }
 
+    @Override
+    public ProductDto getProductById(int productId){
+        ProductDto productDto;
+        productDto = this.mapToDTO(productRepository.getProductById(productId));
+        return productDto;
+    }
+
     // convert Entity into DTO
     public ProductDto mapToDTO(Product product){
         ProductDto productDto = new ProductDto();
