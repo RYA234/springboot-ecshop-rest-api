@@ -2,6 +2,8 @@ package com.example.restapi.implement.customer;
 
 import com.example.restapi.domain.customer.Customer;
 import com.example.restapi.domain.customer.CustomerRepository;
+import com.example.restapi.implement.security.JWTAuthResponse;
+import com.example.restapi.implement.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +28,19 @@ public class CustomerRestController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtTokenProvider tokenProvider;
     @PostMapping("/api/auth/signin")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto){
+    public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
       Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication((authentication));
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // get token form tokenProvider
+        String token = tokenProvider.generateToken(authentication);
+
+        return  ResponseEntity.ok(new JWTAuthResponse(token));
+        //return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 
