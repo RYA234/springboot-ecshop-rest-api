@@ -8,4 +8,6 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     @Query("SELECT c FROM Customer c WHERE c.email = ?1")
     public Customer findByEmail(String email);
 
+
+    boolean existsByEmail(String email);
 }
