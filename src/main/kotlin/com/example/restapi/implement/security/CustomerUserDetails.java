@@ -6,7 +6,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-
+/**
+ * @brief:  UserDetail for Customer Entity.
+ *
+ * @description CustomerUserDetails is customized in fit this ECshop project.
+ *              Username in default UserDetail change to email in CustomerUserDetails.
+ *              Password in CustomerUserDetail is same as default UserDetail(not change).
+ *
+ * @Auther RYA234
+ */
 public class CustomerUserDetails implements UserDetails {
     private Customer customer;
 

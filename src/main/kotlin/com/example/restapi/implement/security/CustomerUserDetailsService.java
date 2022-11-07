@@ -7,6 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+
+/**
+ * @brief:  UserDetailService for Customer Entity.
+ * @description CustomerUserDetailsService is customized in fit this ECshop project.
+ *
+ * @Auther RYA234
+ */
 public class CustomerUserDetailsService implements UserDetailsService {
     @Autowired
     private CustomerRepository customerRepository;

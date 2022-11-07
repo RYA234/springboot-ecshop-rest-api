@@ -16,6 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * @brief: Filter class in SpringSecurity.
+ *
+ * @description  Override method is only doFilterInternal.
+ *               doFilterInternal apply for JWT authentication.
+ * @Auther RYA234
+ */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     // inject dependencies
@@ -27,6 +35,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return new CustomerUserDetailsService();
     }
 
+    // アクセスできるユーザーの制御をしている
+    // todo カート機能、注文機能を実装してからjavadocを完成させる。
+
+/**
+ * @brief: Filter class in SpringSecurity.
+ *
+ * @description  When HttpRequest is received by client,this method does.
+ *               doFilterInternal`s role is  the customer only access.
+ *               for example,in UseCase, customer check their own Cart or MyPage or OrderHistory
+ *              may use ＠@PreAuthorize
+ *
+ *             // todo まだ動きを確認できていないので、カート機能、注文機能ができ次第確認すること
+ *
+ * @Auther RYA234
+ */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
