@@ -1,6 +1,7 @@
 package com.example.restapi.implement.security;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -37,8 +38,8 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Autowired
-//    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private JwtAuthenticationEntryPoint authenticationEntryPoint;
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(){
         return new JwtAuthenticationFilter();
@@ -54,8 +55,6 @@ public class WebSecurityConfig {
             throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
     }
-    //
-    //
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -78,7 +77,7 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .exceptionHandling()
-//                .authenticationEntryPoint(authenticationEntryPoint)
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
