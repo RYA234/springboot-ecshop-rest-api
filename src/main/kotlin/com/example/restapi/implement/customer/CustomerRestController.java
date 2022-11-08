@@ -32,6 +32,7 @@ public class CustomerRestController {
     private JwtTokenProvider tokenProvider;
     @PostMapping("/api/auth/signin")
     public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
+        //It make authentication instant by inputData,Email and Password
       Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
