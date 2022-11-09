@@ -1,6 +1,9 @@
-package com.example.restapi.implement.security;
+package com.example.restapi.implement.config;
 
 
+import com.example.restapi.implement.security.CustomerUserDetailsService;
+import com.example.restapi.implement.security.JwtAuthenticationEntryPoint;
+import com.example.restapi.implement.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -83,8 +86,13 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/**").permitAll()
-                .antMatchers(("/api/auth/**")).permitAll()
+               .antMatchers(HttpMethod.GET,"/api/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/v2/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/webjars/**").permitAll()
                 .anyRequest()
                 .authenticated();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
