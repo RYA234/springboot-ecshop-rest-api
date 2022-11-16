@@ -34,7 +34,7 @@ public class ProductServiceImplement implements ProductService {
     public ProductResponse getProductsByCategory(int pageNo,int pageSize,int CategoryId){
         Pageable pageable = PageRequest.of(pageNo, pageSize);
 
-        Page<Product> products = productRepository.getProductsByCategory(CategoryId,pageable);
+        Page<Product> products = productRepository. findByCategoryId( CategoryId, pageable);
         List<Product> productsList = products.getContent();
 
         // convert to ProductDto to ProductResponse
@@ -44,8 +44,9 @@ public class ProductServiceImplement implements ProductService {
         productResponse.setPageNo(products.getNumber());
         productResponse.setPageSize(products.getSize());
         productResponse.setTotalElements(products.getTotalElements());
-        productResponse.setTotalPages(products.getTotalPages());
+        productResponse.setTotalPages( products.getTotalPages());
         productResponse.setLast(products.isLast());
+        productResponse.setCategoryId(CategoryId);
 
         return productResponse;
     }

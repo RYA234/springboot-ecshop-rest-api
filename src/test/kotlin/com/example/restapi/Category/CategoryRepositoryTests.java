@@ -7,8 +7,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @DataJpaTest(showSql = false)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(false)
@@ -20,6 +18,8 @@ public class CategoryRepositoryTests {
     public void testListEnabledCategories(){
 
     }
+
+
 
 
 

@@ -27,6 +27,13 @@ public class Category{
     @Column(name ="parent_id")
     private Integer parent;
 
+    public Category(Integer id, String name, String alias, Integer parent) {
+        this.id = id;
+        this.name = name;
+        this.alias = alias;
+        this.parent = parent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

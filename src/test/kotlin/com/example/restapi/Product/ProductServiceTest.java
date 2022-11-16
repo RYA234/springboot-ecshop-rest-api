@@ -67,25 +67,29 @@ public class ProductServiceTest {
     public void getProductsByCategory_pageSize2_category1_first_page_Test(){
         int pageNo = 0;
         int pageSize = 2;
-        int categoryId =1;
+        int categoryId =3;
 
         // convert List<Product> to Page<Product>
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         final int start = (int)pageable.getOffset();
         final int end = Math.min((start + pageable.getPageSize()), productList.size());
-        Page<Product> productPage = new PageImpl<>(productList.subList(start,end),pageable,productList.size());
-
+        List<Product> actualContent = new ArrayList<>();
+        actualContent.add(new Product(1,"Sardin","This is a Sardin",false, 1,200,0.01f,0,"aa"));
+        actualContent.add(new Product(2,"Maguro","This is a Maguro",false, 1,200,0.01f,0,"maguro_image"));
+        Page<Product> productPage = new PageImpl<>( actualContent.subList(start,end),pageable,productList.size());
+        //Page<Product> products = productRepository. findByCategoryId( CategoryId, pageable);
         // do service
-        Mockito.doReturn(productPage).when(productRepository).getProductsByCategory(categoryId,pageable);
+        Mockito.doReturn(productPage).when(productRepository).findByCategoryId( categoryId, pageable);
         ProductResponse actualResponse =  productServiceImplement.getProductsByCategory(pageNo,pageSize,categoryId);
+
+//         Mockito.doReturn(productPage).when(productRepository).getProductsByCategory(categoryId,pageable);
+//        ProductResponse actualResponse =  productServiceImplement.getProductsByCategory(pageNo,pageSize,categoryId);
         // todo why categoryId is decrease?
 
         // create expected Data
         List<Product> expectedProductList = new ArrayList<>();
         expectedProductList.add(new Product(1,"Sardin","This is a Sardin",false, 1,200,0.01f,0,"aa"));
         expectedProductList.add(new Product(2,"Maguro","This is a Maguro",false, 1,200,0.01f,0,"maguro_image"));
-        expectedProductList.add(new Product(3,"Salmon","This is a Salmon",false, 1,200,0.01f,0,"maguro_image"));
-        expectedProductList.add(new Product(4,"Tuna","This is a Tuna",false, 1,200,0.01f,0,"maguro_image"));
         List<ProductDto> content = expectedProductList.stream().map(product -> productServiceImplement.mapToDTO(product)).collect(Collectors.toList());
 
 
