@@ -28,7 +28,6 @@ public class ProductRestController {
 
     @Autowired
     CategoryService categoryService;
-
     @GetMapping("/api/products")
     public ProductResponse getProductByCategory(
             @RequestParam(value ="pageNo", defaultValue = "0", required = false ) int pageNo,

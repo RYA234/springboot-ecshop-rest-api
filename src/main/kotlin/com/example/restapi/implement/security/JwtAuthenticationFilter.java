@@ -2,7 +2,6 @@ package com.example.restapi.implement.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,16 +23,16 @@ import java.io.IOException;
  *               doFilterInternal apply for JWT authentication.
  * @Auther RYA234
  */
+
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     // inject dependencies
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-    @Bean
-    public UserDetailsService userDetailsService(){
-        return new CustomerUserDetailsService();
-    }
+    @Autowired
+    UserDetailsService userDetailsService;
 
     // アクセスできるユーザーの制御をしている
     // todo カート機能、注文機能を実装してからjavadocを完成させる。
@@ -61,7 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // get username from token
             String username = tokenProvider.getCustomernameFromJWT(token);
             // load user associated with token
-            CustomerUserDetails customerUserDetails = (CustomerUserDetails) userDetailsService().loadUserByUsername(username);
+            CustomerUserDetails customerUserDetails = (CustomerUserDetails) userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     customerUserDetails,null,customerUserDetails.getAuthorities()
             );
@@ -70,7 +69,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
         filterChain.doFilter(request,response);
-
     }
 
     // Bearer <accessToken>
