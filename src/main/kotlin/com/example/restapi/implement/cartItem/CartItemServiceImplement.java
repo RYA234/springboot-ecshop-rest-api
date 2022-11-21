@@ -8,6 +8,7 @@ import com.example.restapi.domain.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartItemServiceImplement  implements CartItemService {
 
@@ -37,26 +38,26 @@ public class CartItemServiceImplement  implements CartItemService {
         return updatedQuantity;
     }
     @Override
-    public List<CartItem> listCartItems(Integer customerId) {
+    public List<CartItemDto> listCartItems(Integer customerId) {
 
-
-
-        return null;
+        List<CartItem> cartItemList = cartItemRepository.findByCustomerId(customerId);
+        List<CartItemDto> cartItemDtoList = cartItemList.stream().map(cartItem -> mapToDTO(cartItem)).collect(Collectors.toList());
+        return cartItemDtoList;
     }
 
     @Override
-    public float updateQuantity(Integer productId, Integer quantity, Integer customerId) {
-        return 0;
+    public void updateQuantity(Integer productId, Integer quantity, Integer customerId) {
+        cartItemRepository.updateQuantity(quantity,customerId,productId);
     }
 
     @Override
     public void removeProduct(Integer productId, Integer customerId) {
-
+        cartItemRepository.deleteByCustomerIdAndProductId(customerId,productId);
     }
 
     @Override
     public void deleteByCustomer(Integer customerId) {
-
+        cartItemRepository.deleteByCustomerId(customerId);
     }
 
     private CartItemDto mapToDTO(CartItem cartItem){
