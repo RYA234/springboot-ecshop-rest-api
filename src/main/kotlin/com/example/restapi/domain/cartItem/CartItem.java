@@ -7,6 +7,19 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+/**
+ *
+ * @brief:  CartItem Entity class
+ *
+ * @description In this Project,"Entity" mean java Database O/R mapping,
+ *              not mean Domain Driven Development.
+ *
+ *
+ * @Auther RYA234
+ *
+ * @UseCase: {@link CartItemService}
+ */
+
 @Entity
 @Getter
 @Setter
@@ -33,7 +46,6 @@ public class CartItem{
         this.productId = productId;
         this.quantity = quantity;
     }
-
     public CartItem(Integer id, int customerId, int productId, int quantity) {
         this.id = id;
         this.customerId = customerId;
