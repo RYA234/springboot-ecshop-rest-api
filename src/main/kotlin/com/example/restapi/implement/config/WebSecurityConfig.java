@@ -87,15 +87,19 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/api/products/**").authenticated()
+                .antMatchers("/api/cart/**").authenticated()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/v2/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/webjars/**").permitAll()
-                .anyRequest()
-                .authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .logout()
+                .logoutUrl("/api/auth/logout");
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }
