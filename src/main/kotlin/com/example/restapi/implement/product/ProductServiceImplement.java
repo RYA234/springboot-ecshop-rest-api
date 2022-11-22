@@ -14,10 +14,12 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @brief: This Class is Service class in Architecture Controller-Service-Repository Pattern
+ * @brief:  product service implement class
  *
- * @description　Add business logic to data obtained from ProductRepositories.
- *               The data transfer to ProductRestController.
+ * @description  Software architecture is based on  Controller-"Service"-Repository Pattern
+ *               This class is "Service" and charge of business logic in Product Domain.
+ *               This class convert Entity to Dto,because of // todo 何か書く
+ *
  *
  * @Auther RYA234
  *
