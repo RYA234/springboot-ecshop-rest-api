@@ -25,9 +25,11 @@ public class Customer {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    // Loginするときのパスワードして使う
     @Column(nullable = false, length = 64)
     private String password;
 
+    // ログインするときのIDとして使用する
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 }
