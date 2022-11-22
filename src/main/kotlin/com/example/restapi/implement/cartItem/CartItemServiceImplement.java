@@ -6,10 +6,13 @@ import com.example.restapi.domain.cartItem.CartItemService;
 import com.example.restapi.domain.product.Product;
 import com.example.restapi.domain.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
+@Transactional
 public class CartItemServiceImplement  implements CartItemService {
 
     @Autowired
@@ -17,7 +20,6 @@ public class CartItemServiceImplement  implements CartItemService {
 
     @Autowired
     ProductRepository productRepository;
-
     @Override
     public Integer addProduct(Integer productId, Integer quantity, Integer customerId)
     {
@@ -41,10 +43,8 @@ public class CartItemServiceImplement  implements CartItemService {
     public List<CartItemDto> listCartItems(Integer customerId) {
 
         List<CartItem> cartItemList = cartItemRepository.findByCustomerId(customerId);
-        List<CartItemDto> cartItemDtoList = cartItemList.stream().map(cartItem -> mapToDTO(cartItem)).collect(Collectors.toList());
-        return cartItemDtoList;
+        return cartItemList.stream().map(cartItem -> mapToDTO(cartItem)).collect(Collectors.toList());
     }
-
     @Override
     public void updateQuantity(Integer productId, Integer quantity, Integer customerId) {
         cartItemRepository.updateQuantity(quantity,customerId,productId);
