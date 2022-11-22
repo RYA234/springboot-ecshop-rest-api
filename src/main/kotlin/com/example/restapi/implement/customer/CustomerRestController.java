@@ -30,6 +30,7 @@ public class CustomerRestController {
 
     @Autowired
     private JwtTokenProvider tokenProvider;
+    // todo ビジネスロジックをServiceに移動する
     @PostMapping("/api/auth/signin")
     public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
         //It make authentication instant by inputData,Email and Password
@@ -46,7 +47,7 @@ public class CustomerRestController {
 
 
 
-
+    // todo ビジネスロジックをServiceに移動する
     @PostMapping("/api/auth/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupDto signupDto){
         // add check for email in a DB
@@ -64,5 +65,6 @@ public class CustomerRestController {
 
         return new ResponseEntity<>("Customer registered successfully",HttpStatus.OK);
     }
+
 
 }
