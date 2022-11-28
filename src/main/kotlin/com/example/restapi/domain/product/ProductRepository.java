@@ -11,6 +11,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product,In
 
     Page<Product> findByCategoryId(int categoryId, Pageable pageable);
 
-    @Query("select p from Product p where p.id = ?1")
-    Product getProductById(int productId);
+   @Query("select p from Product p where p.id = ?1")
+    Product getProductById(Integer Id);
+
 }

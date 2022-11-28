@@ -11,18 +11,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 //@DataJpaTest(showSql = false)
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 //@Rollback(false)
 
+//todo 問題　クラスで実行するとエラーになるメソッドある。メソッドごとに実行すると成功する。
 @DataJpaTest
 public class ProductRepositoryTest {
     @Autowired
    private ProductRepository productRepository;
     @BeforeEach
-    public void setup(){
+    public void setUp(){
         productRepository.save(new Product(1,"Sardin","This is a Sardin",false, 1,200,0.01f,0,"aa"));
         productRepository.save(new Product(2,"Maguro","This is a Maguro",false, 1,200,0.01f,0,"maguro_image"));
         productRepository.save(new Product(3,"Salmon","This is a Salmon",false, 1,200,0.01f,0,"maguro_image"));
@@ -41,19 +43,8 @@ public class ProductRepositoryTest {
 
     }
     @Test
-    @DisplayName("商品Idで商品情報を検索すると、商品の情報を取得する。。")
-    public void giveProductObject_whenFindById_thenReturnProduct() {
-        // given-precondition or Setup
-        Product expectedProduct = new Product(5,"Pork","This is a Pork",false, 2,330,0.01f,0,"porkImage");
-        //when - action or the behavior that we are going test
-        Product actualProduct = productRepository.getProductById(5);
-        //then - verify the output
-        assert(actualProduct.equals(expectedProduct));
-    }
-
-    @Test
-    @DisplayName("givenにおいて、CategoryIdでしたとき、thenが一致する。")
-    public void givenCategoryIdAndPegeable_whenFindByCategoryId_thenReturnPage_Product() {
+    @DisplayName("categroyIdとPageableが引数で与えられて、findByCategoryIdを実行した場合、ページネーション化されてcategoryIdが一致する商品が返される。")
+    public void givenCategoryIdAndPageable_whenFindByCategoryId_thenReturnPage_Product() {
         // given-precondition or Setup
         int pageNo = 0;
         int pageSize = 2;
@@ -64,6 +55,19 @@ public class ProductRepositoryTest {
         Page<Product> actualProducts = productRepository.findByCategoryId( categoryId, pageable);
         // then - verify the output
         int expectedTotal = 4;
-        assertEquals(actualProducts.getTotalElements(),expectedTotal);
+        assertThat(actualProducts.getTotalElements()).isEqualTo(expectedTotal);
+    }
+    @Test
+    @DisplayName("商品Idで商品情報を検索すると、商品の情報を取得する。。")
+    public void giveProductObject_whenFindById_thenReturnProduct() {
+        // given-precondition or Setup
+        Product expectedProduct = new Product(5,"Pork","This is a Pork",false, 2,330,0.01f,0,"porkImage");
+        //when - action or the behavior that we are going test
+        Product actualProduct;
+        Integer id=5;
+        // actualProduct = productRepository.getProductById(5);
+        actualProduct = productRepository.getProductById(id);
+        //then - verify the output;
+        assertThat(actualProduct.getName()).isEqualTo(expectedProduct.getName());
     }
 }
