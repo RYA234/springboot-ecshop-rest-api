@@ -5,12 +5,10 @@ import com.example.restapi.domain.order.OrderRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.annotation.Rollback;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -20,29 +18,36 @@ import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DataJpaTest(showSql = false)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(false)
+
+// withMysqlVersion
+//@DataJpaTest(showSql = false)
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@Rollback(false)
+@DataJpaTest
 public class OrderRepositoryTest {
     @Autowired
     private OrderRepository orderRepository;
-
     @Test
     @DisplayName("Orderを引数とし、Saveを実行したとき、Orderが返される。")
     public void givenOrder_whenSave_thenReturnOrder() {
         // given-precondition or Setup
-        Order newOrder = new Order(0, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending");
+        Order newOrder = new Order(99, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending");
         //when - action or the behavior that we are going test
         Order savedOrder = orderRepository.save(newOrder);
         //then - verify the output
         assertThat(savedOrder.getId()).isGreaterThan(0);
     }
-
     @Test
-    @DisplayName("cutomerIdとPageableを引数とし、findByCustomerIdを実行したとき、ページネーションかされたOrdersが返される。")
+    @DisplayName("cutomerIdとPageableを引数とし、findByCustomerIdを実行したとき、ページネーション化されたOrdersが返される。")
     public void givenCustomerIdandPageable_whenFindByCustomerId_thenReturnPageOrder() {
         // given-precondition or Setup
         Integer customerId = 0;
+        orderRepository.save(new Order(3, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending"));
+        orderRepository.save(new Order(0, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending"));
+        orderRepository.save(new Order(0, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending"));
+        orderRepository.save(new Order(0, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending"));
+        orderRepository.save(new Order(3, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending"));
+        orderRepository.save(new Order(3, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending"));
         // make pageable
         int pageNo = 0;
         int pageSize =2;
