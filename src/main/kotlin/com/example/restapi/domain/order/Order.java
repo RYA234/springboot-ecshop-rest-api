@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-
-
 @Entity
 @Getter
 @Setter
@@ -56,9 +54,6 @@ public class Order {
     private String status;
 
 
-    public Order(Integer customerId) {
-        this.customerId = customerId;
-    }
 
     public Order(Integer customerId, Date orderTime, float productCost, float shippingCost, float subtotal, float tax, float total, String status) {
         this.customerId = customerId;
