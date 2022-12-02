@@ -10,7 +10,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ *
+ * @brief:  Order service implement class
+ *
+ * @description  Software architecture is based on  Controller-"Service"-Repository Pattern
+ *               This class is "Service" and charge of business logic in Order Domain.
+ * @Auther RYA234
+ *
+ * @Entity: {@link  Order}
+ * @UseCase: {@link OrderService}
+ */
 @Service
 public class OrderServiceImplement implements OrderService {
 
@@ -34,8 +44,9 @@ public class OrderServiceImplement implements OrderService {
     }
 
     @Override
-    public com.example.restapi.domain.order.Order get(Integer orderId) {
-        return orderRepository.findOrderById(orderId);
+    public OrderDto get(Integer orderId) {
+        OrderDto orderDto = mapToDTO(orderRepository.findOrderById(orderId));
+        return orderDto;
     }
 
     private Order mapToEntity(OrderDto orderDto){

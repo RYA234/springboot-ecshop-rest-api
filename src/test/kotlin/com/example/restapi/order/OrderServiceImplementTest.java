@@ -3,8 +3,8 @@ package com.example.restapi.order;
 import com.example.restapi.domain.order.Order;
 import com.example.restapi.domain.order.OrderRepository;
 import com.example.restapi.domain.order.OrderResponse;
+import com.example.restapi.implement.order.OrderDto;
 import com.example.restapi.implement.order.OrderServiceImplement;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,19 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+/**
+ *
+ * @brief:  Order Service Unit Test class
+ *
+ * @description  this class is Unit test for  {@link OrderServiceImplement}.
+ *               Format is base on BDD style(given-when-then).
+ *
+ * @Auther RYA234
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 public class OrderServiceImplementTest {
@@ -36,11 +48,6 @@ public class OrderServiceImplementTest {
     @InjectMocks
     private OrderServiceImplement orderServiceImplement;
 
-
-    @BeforeEach
-    public void setUp(){
-
-    }
 
     @Test
     @DisplayName("customerIdとPageableIdを引数とし、listByPageByCustomerを実行したとき、OrderResponseが返り値となる。")
@@ -58,20 +65,34 @@ public class OrderServiceImplementTest {
         //when - action or the behavior that we are going test
         OrderResponse actualOrderResponse = orderServiceImplement.listByPageByCustomer(customerId,pageNo,pageSize);
         //then - verify the output
-
         OrderResponse expectedOrderResopnse = new OrderResponse(0,2,3,2,false);
-
         assertThat(actualOrderResponse.getPageNo()).isEqualTo(expectedOrderResopnse.getPageNo());
         assertThat(actualOrderResponse.getTotalPages()).isEqualTo(expectedOrderResopnse.getTotalPages());
         assertThat(actualOrderResponse.getTotalElements()).isEqualTo(expectedOrderResopnse.getTotalElements());
         assertThat(actualOrderResponse.getPageSize()).isEqualTo(expectedOrderResopnse.getPageSize());
-
     }
     private Page<Order> mockPageOrder(Pageable pageable, int total, List<Order> content){
         final int start = (int)pageable.getOffset();
         final int end = Math.min((start + pageable.getPageSize()), content.size());
         return new PageImpl<>(content.subList(start,end),pageable,total);
     }
+
+    @Test
+    @DisplayName("orderIdを引数とし、Getを実行したとき、OrderDtoが返される。")
+    public void givenOrderId_whenGet_thenReturnOrderDto() {
+        // given-precondition or Setup
+        Order order = new Order(3,0, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending");
+        Integer orderId = 1;
+        Mockito.doReturn(order).when(orderRepository).findOrderById(orderId);
+        // when - action or the behavior that we are going test
+        OrderDto actualOrderDto = orderServiceImplement.get(orderId);
+        // then - verify the output
+        OrderDto expectedDto = new OrderDto(3,0, order.getOrderTime(),6000f,100f,6100f,610f,6710f,"pending");
+        assertThat(actualOrderDto).isEqualTo(actualOrderDto);
+    }
+
+
+
     private Date toDate(LocalDateTime localDateTime) {
         ZoneId zone = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, zone);
