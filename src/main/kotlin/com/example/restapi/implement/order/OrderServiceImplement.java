@@ -43,6 +43,11 @@ public class OrderServiceImplement implements OrderService {
            orderDto.setProductCost(orderDto.getProductCost() + miniSum);
        }
         // cal productCost
+        if( orderDto.getProductCost() <= 4000f){
+            orderDto.setShippingCost(300);
+        }else{
+            orderDto.setShippingCost(0);
+        }
 
         // cal ShippingCost
 

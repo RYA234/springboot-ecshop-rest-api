@@ -100,13 +100,11 @@ public class OrderServiceImplementTest {
     }
 
     @Test
-    @DisplayName("givenを引数とし、Createを実行したとき、thenとなる。")
-    public void givenOrderInfomation_whenCreate_newOrder() {
+    @DisplayName("ショッピングカートとCustomerを引数とし、Createを実行したとき、となる。")
+    public void givenCartItemDtoAndCustomerId_whenCreate_newOrder() {
         // given-precondition or Setup
 
-        // todo GET METHODで使われる想定
-        // todo orderDetailrepositryの　saveの実装が必要。していた。
-        Integer customerId = 1;
+        //  GET METHODで使われる想定
         List<CartItemDto> cartItemDtos = new ArrayList<>();
         cartItemDtos.add(new CartItemDto(1,3,3,5));
         cartItemDtos.add(new CartItemDto(1,3,7,1));
@@ -114,6 +112,7 @@ public class OrderServiceImplementTest {
         cartItemDtos.add(new CartItemDto(1,3,13,9));
         cartItemDtos.add(new CartItemDto(1,3,15,3));
 
+        // mock
         Mockito.doReturn(new Product(3,"Salmon","This is a Salmon",true, 1,200,0.01f,0,"maguro_image")).when(productRepository).getProductById(3);
         Mockito.doReturn(new Product(7,"Chicken","This is a chicken",true, 2,800,0.01f,0,"Chicken_image")).when(productRepository).getProductById(7);
         Mockito.doReturn(new Product(10,"Carrot","This is a Carrot",true, 3,100,0.01f,0,"Carrot_image")).when(productRepository).getProductById(10);
@@ -121,16 +120,12 @@ public class OrderServiceImplementTest {
         Mockito.doReturn(new Product(15,"Nuts","This is a Nuts",true, 3,100,0.01f,0,"Nuts_image")).when(productRepository).getProductById(15);
 
         float expectedProductCost = 3900f;
-        float expectedShippingCost = 200f;
+        float expectedShippingCost = 300f;
         float expectedSubtotal = 4100f;
         float expectedTax = 390f;
         float expectedTotal = 4490f;
-
         PaymentMethod paymentMethod = PaymentMethod.CASH;
-        float actualProductCost = 0;
-//        for(var cartItem : cartItemDtos) {
-//            actualProductCost += productRepository.getProductById(cartItem.getProductId()).getPrice()*cartItem.getQuantity();
-//        }
+
 
         //Mockito.doReturn().when(orderRepository).save()
 
@@ -139,6 +134,11 @@ public class OrderServiceImplementTest {
 
         //then - verify the output
         assertThat(orderDto.getProductCost()).isEqualTo(expectedProductCost);
+        assertThat(orderDto.getShippingCost()).isEqualTo(expectedShippingCost);
+        assertThat(orderDto.getSubtotal()).isEqualTo(expectedSubtotal);
+        assertThat(orderDto.getTax()).isEqualTo(expectedTax);
+        assertThat(orderDto.getTotal()).isEqualTo(expectedTotal);
+
     }
 
     private Date toDate(LocalDateTime localDateTime) {
