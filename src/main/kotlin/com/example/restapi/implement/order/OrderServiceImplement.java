@@ -57,6 +57,7 @@ public class OrderServiceImplement implements OrderService {
             orderDto.setTax(orderDto.getTax() + eachTax);
         }
         // cal total;
+        orderDto.setTotal(orderDto.getSubtotal() + orderDto.getTax());
         return orderDto;
     }
 
