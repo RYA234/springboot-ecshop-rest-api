@@ -113,17 +113,17 @@ public class OrderServiceImplementTest {
         cartItemDtos.add(new CartItemDto(1,3,15,3));
 
         // mock
-        Mockito.doReturn(new Product(3,"Salmon","This is a Salmon",true, 1,200,0.01f,0,"maguro_image")).when(productRepository).getProductById(3);
-        Mockito.doReturn(new Product(7,"Chicken","This is a chicken",true, 2,800,0.01f,0,"Chicken_image")).when(productRepository).getProductById(7);
-        Mockito.doReturn(new Product(10,"Carrot","This is a Carrot",true, 3,100,0.01f,0,"Carrot_image")).when(productRepository).getProductById(10);
-        Mockito.doReturn(new Product(13,"Bean","This is a Bean",true, 3,100,0.01f,0,"Bean_image")).when(productRepository).getProductById(13);
-        Mockito.doReturn(new Product(15,"Nuts","This is a Nuts",true, 3,100,0.01f,0,"Nuts_image")).when(productRepository).getProductById(15);
+        Mockito.doReturn(new Product(3,"Salmon","This is a Salmon",true, 1,200,0.1f,0,"maguro_image")).when(productRepository).getProductById(3);
+        Mockito.doReturn(new Product(7,"Chicken","This is a chicken",true, 2,800,0.1f,0,"Chicken_image")).when(productRepository).getProductById(7);
+        Mockito.doReturn(new Product(10,"Carrot","This is a Carrot",true, 3,100,0.1f,0,"Carrot_image")).when(productRepository).getProductById(10);
+        Mockito.doReturn(new Product(13,"Bean","This is a Bean",true, 3,100,0.1f,0,"Bean_image")).when(productRepository).getProductById(13);
+        Mockito.doReturn(new Product(15,"Nuts","This is a Nuts",true, 3,100,0.1f,0,"Nuts_image")).when(productRepository).getProductById(15);
 
         float expectedProductCost = 3900f;
         float expectedShippingCost = 300f;
         float expectedSubtotal = 4200f;
         float expectedTax = 390f;
-        float expectedTotal = 4490f;
+        float expectedTotal = 4590f;
         PaymentMethod paymentMethod = PaymentMethod.CASH;
 
 

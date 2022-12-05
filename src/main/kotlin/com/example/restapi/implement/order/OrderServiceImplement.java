@@ -52,8 +52,11 @@ public class OrderServiceImplement implements OrderService {
         // cal subtotal
         orderDto.setSubtotal(orderDto.getProductCost() + orderDto.getShippingCost());
         // cal tax
-
-        // Cal total;
+        for(var cartItem :cartItemDtos){
+            float eachTax = cartItem.getQuantity()*productRepository.getProductById(cartItem.getProductId()).getPrice()*productRepository.getProductById(cartItem.getProductId()).getTaxRate();
+            orderDto.setTax(orderDto.getTax() + eachTax);
+        }
+        // cal total;
         return orderDto;
     }
 
