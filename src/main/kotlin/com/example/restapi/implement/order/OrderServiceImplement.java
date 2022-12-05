@@ -42,17 +42,15 @@ public class OrderServiceImplement implements OrderService {
            float miniSum = cartItem.getQuantity()*productRepository.getProductById(cartItem.getProductId()).getPrice();
            orderDto.setProductCost(orderDto.getProductCost() + miniSum);
        }
-        // cal productCost
+        // cal shipping
         if( orderDto.getProductCost() <= 4000f){
             orderDto.setShippingCost(300);
         }else{
             orderDto.setShippingCost(0);
         }
 
-        // cal ShippingCost
-
         // cal subtotal
-
+        orderDto.setSubtotal(orderDto.getProductCost() + orderDto.getShippingCost());
         // cal tax
 
         // Cal total;

@@ -100,7 +100,7 @@ public class OrderServiceImplementTest {
     }
 
     @Test
-    @DisplayName("ショッピングカートとCustomerを引数とし、Createを実行したとき、となる。")
+    @DisplayName("ショッピングカートとCustomerを引数とし、Createを実行したとき、注文情報が作成される。")
     public void givenCartItemDtoAndCustomerId_whenCreate_newOrder() {
         // given-precondition or Setup
 
@@ -121,7 +121,7 @@ public class OrderServiceImplementTest {
 
         float expectedProductCost = 3900f;
         float expectedShippingCost = 300f;
-        float expectedSubtotal = 4100f;
+        float expectedSubtotal = 4200f;
         float expectedTax = 390f;
         float expectedTotal = 4490f;
         PaymentMethod paymentMethod = PaymentMethod.CASH;
