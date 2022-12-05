@@ -1,8 +1,9 @@
 package com.example.restapi.order;
 
-import com.example.restapi.domain.order.Order;
-import com.example.restapi.domain.order.OrderRepository;
-import com.example.restapi.domain.order.OrderResponse;
+import com.example.restapi.domain.order.*;
+import com.example.restapi.domain.product.Product;
+import com.example.restapi.domain.product.ProductRepository;
+import com.example.restapi.implement.cartItem.CartItemDto;
 import com.example.restapi.implement.order.OrderDto;
 import com.example.restapi.implement.order.OrderServiceImplement;
 import org.junit.jupiter.api.DisplayName;
@@ -45,6 +46,11 @@ public class OrderServiceImplementTest {
     @MockBean
     private OrderRepository orderRepository;
 
+    @MockBean
+    private OrderDetailRepository orderDetailRepository;
+
+    @MockBean
+    private ProductRepository productRepository;
     @InjectMocks
     private OrderServiceImplement orderServiceImplement;
 
@@ -81,6 +87,8 @@ public class OrderServiceImplementTest {
     @DisplayName("orderIdを引数とし、Getを実行したとき、OrderDtoが返される。")
     public void givenOrderId_whenGet_thenReturnOrderDto() {
         // given-precondition or Setup
+
+
         Order order = new Order(3,0, toDate(LocalDateTime.now()),6000f,100f,6100f,610f,6710f,"pending");
         Integer orderId = 1;
         Mockito.doReturn(order).when(orderRepository).findOrderById(orderId);
@@ -91,7 +99,47 @@ public class OrderServiceImplementTest {
         assertThat(actualOrderDto).isEqualTo(actualOrderDto);
     }
 
+    @Test
+    @DisplayName("givenを引数とし、Createを実行したとき、thenとなる。")
+    public void givenOrderInfomation_whenCreate_newOrder() {
+        // given-precondition or Setup
 
+        // todo GET METHODで使われる想定
+        // todo orderDetailrepositryの　saveの実装が必要。していた。
+        Integer customerId = 1;
+        List<CartItemDto> cartItemDtos = new ArrayList<>();
+        cartItemDtos.add(new CartItemDto(1,3,3,5));
+        cartItemDtos.add(new CartItemDto(1,3,7,1));
+        cartItemDtos.add(new CartItemDto(1,3,10,9));
+        cartItemDtos.add(new CartItemDto(1,3,13,9));
+        cartItemDtos.add(new CartItemDto(1,3,15,3));
+
+        Mockito.doReturn(new Product(3,"Salmon","This is a Salmon",true, 1,200,0.01f,0,"maguro_image")).when(productRepository).getProductById(3);
+        Mockito.doReturn(new Product(7,"Chicken","This is a chicken",true, 2,800,0.01f,0,"Chicken_image")).when(productRepository).getProductById(7);
+        Mockito.doReturn(new Product(10,"Carrot","This is a Carrot",true, 3,100,0.01f,0,"Carrot_image")).when(productRepository).getProductById(10);
+        Mockito.doReturn(new Product(13,"Bean","This is a Bean",true, 3,100,0.01f,0,"Bean_image")).when(productRepository).getProductById(13);
+        Mockito.doReturn(new Product(15,"Nuts","This is a Nuts",true, 3,100,0.01f,0,"Nuts_image")).when(productRepository).getProductById(15);
+
+        float expectedProductCost = 3900f;
+        float expectedShippingCost = 200f;
+        float expectedSubtotal = 4100f;
+        float expectedTax = 390f;
+        float expectedTotal = 4490f;
+
+        PaymentMethod paymentMethod = PaymentMethod.CASH;
+        float actualProductCost = 0;
+//        for(var cartItem : cartItemDtos) {
+//            actualProductCost += productRepository.getProductById(cartItem.getProductId()).getPrice()*cartItem.getQuantity();
+//        }
+
+        //Mockito.doReturn().when(orderRepository).save()
+
+        //when - action or the behavior that we are going test
+        OrderDto orderDto = orderServiceImplement.create(3,cartItemDtos,paymentMethod);
+
+        //then - verify the output
+        assertThat(orderDto.getProductCost()).isEqualTo(expectedProductCost);
+    }
 
     private Date toDate(LocalDateTime localDateTime) {
         ZoneId zone = ZoneId.systemDefault();

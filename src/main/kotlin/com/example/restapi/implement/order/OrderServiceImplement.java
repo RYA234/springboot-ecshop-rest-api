@@ -1,6 +1,7 @@
 package com.example.restapi.implement.order;
 
 import com.example.restapi.domain.order.*;
+import com.example.restapi.domain.product.ProductRepository;
 import com.example.restapi.implement.cartItem.CartItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,8 +29,33 @@ public class OrderServiceImplement implements OrderService {
     OrderRepository orderRepository;
 
 
+    @Autowired
+    ProductRepository productRepository;
+
+
+
     @Override
-    public void create(Integer customerId, List<CartItemDto> cartItemDtos, PaymentMethod paymentMethod) {
+    public OrderDto create(Integer customerId, List<CartItemDto> cartItemDtos, PaymentMethod paymentMethod) {
+        OrderDto orderDto = new OrderDto();
+        // cal productCost
+       for(var cartItem :cartItemDtos){
+           float miniSum = cartItem.getQuantity()*productRepository.getProductById(cartItem.getProductId()).getPrice();
+           orderDto.setProductCost(orderDto.getProductCost() + miniSum);
+       }
+        // cal productCost
+
+        // cal ShippingCost
+
+        // cal subtotal
+
+        // cal tax
+
+        // Cal total;
+        return orderDto;
+    }
+
+    @Override
+    public void save(Order order) {
 
     }
 
