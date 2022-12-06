@@ -20,8 +20,11 @@ import java.util.List;
 @Service
 public interface OrderService {
     // 顧客が注文を作成するサービス。ショッピングカート内に入っている商品から注文する内容を決める。
-     void create(Integer customerId, List<CartItemDto> cartItemDtos, PaymentMethod paymentMethod);
+    // データベースには保存しない
+     OrderDto create(Integer customerId, List<CartItemDto> cartItemDtos, PaymentMethod paymentMethod);
 
+     // orderの情報をデータベースに保存する。orderDetail.saveも同じタイミングで使う。
+     void save(Order order);
     // 顧客が今までの注文全てを表示する。
      OrderResponse listByPageByCustomer(Integer customerId, int pageNo,int pageSize);
 
