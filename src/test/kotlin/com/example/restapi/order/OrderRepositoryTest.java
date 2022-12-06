@@ -18,11 +18,16 @@ import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
-// withMysqlVersion
-//@DataJpaTest(showSql = false)
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@Rollback(false)
+/**
+ *
+ * @brief:  Order Repository Unit Test class
+ *
+ * @description  this class is Unit test for  {@link OrderRepository}.
+ *               Format is base on BDD style(given-when-then).
+ *               Database is h2 because of testing in memory.
+ * @Auther RYA234
+ *
+ */
 @DataJpaTest
 public class OrderRepositoryTest {
     @Autowired
@@ -59,7 +64,6 @@ public class OrderRepositoryTest {
         int expectedContentSize = 2;
         assertThat(actualOrder.getTotalElements()).isEqualTo(expectedTotal);
         assertThat(actualOrder.getContent().size()).isEqualTo(expectedContentSize);
-
     }
 
     @Test
