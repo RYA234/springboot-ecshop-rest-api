@@ -12,4 +12,14 @@ public class CartItemDto {
     Integer productId;
 
     Integer quantity;
+
+    public CartItemDto(Integer id, Integer customerId, Integer productId, Integer quantity) {
+        this.id = id;
+        this.customerId = customerId;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+    public CartItemDto() {
+    }
 }
