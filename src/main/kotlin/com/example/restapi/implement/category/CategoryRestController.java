@@ -10,10 +10,10 @@ import java.util.List;
 public class CategoryRestController {
 
     @Autowired
-    private CategoryService categoryService;
+    private CategorySevice categorySevice;
 
     @GetMapping("/api/category/all")
     public List<CategoryDto> listAll(){
-        return categoryService.listAll();
+        return categorySevice.listAll();
     }
 }

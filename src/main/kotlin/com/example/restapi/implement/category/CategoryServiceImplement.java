@@ -10,16 +10,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService {
+public class CategoryServiceImplement implements CategorySevice {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Override
     public List<CategoryDto> listAll(){
         List<Category> categories = categoryRepository.findAll();
         List<CategoryDto> categoryDtoList;
         categoryDtoList = categories.stream().map(this::mapToDTO).collect(Collectors.toList());
         return   addChilren(categoryDtoList);
     }
+    @Override
     public List<CategoryDto> addChilren(List<CategoryDto> CategoryDtoList){
         List<Integer> indexRef;
         indexRef = new ArrayList<>();
@@ -34,6 +36,7 @@ public class CategoryService {
         return CategoryDtoList;
     }
 
+    @Override
     public CategoryDto findById(int categoryId){
        return  this.mapToDTO(categoryRepository.findById(categoryId));
     }

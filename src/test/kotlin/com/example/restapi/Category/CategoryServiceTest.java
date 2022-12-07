@@ -3,7 +3,7 @@ package com.example.restapi.Category;
 import com.example.restapi.domain.category.Category;
 import com.example.restapi.implement.category.CategoryDto;
 import com.example.restapi.implement.category.CategoryRepository;
-import com.example.restapi.implement.category.CategoryService;
+import com.example.restapi.implement.category.CategoryServiceImplement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ public class CategoryServiceTest {
     @MockBean
     private CategoryRepository repo;
     @InjectMocks
-    private CategoryService categoryService;
+    private CategoryServiceImplement categoryServiceImplement;
 
     List<CategoryDto> categoryDtoList = new ArrayList<>();
     @BeforeEach
@@ -92,7 +92,7 @@ public class CategoryServiceTest {
         Mockito.doReturn(actualCategoryList).when(repo).findAll();
 
 
-        assertIterableEquals(categoryService.addChilren(categoryDtoList), categoryService.listAll());
+        assertIterableEquals(categoryServiceImplement.addChilren(categoryDtoList), categoryServiceImplement.listAll());
 
     }
 
@@ -115,7 +115,7 @@ public class CategoryServiceTest {
         HashSet<Integer> expectedChildren = new HashSet<>(List.of(tmpExpectedchildren));
 
         // add actualChildren
-        categoryService.addChilren(categoryDtoList);
+        categoryServiceImplement.addChilren(categoryDtoList);
         HashSet<Integer> actualChildren = new HashSet<>(categoryDtoList.get(testCategoryId).getChildren());
         assertIterableEquals(actualChildren,expectedChildren);
 
@@ -130,7 +130,7 @@ public class CategoryServiceTest {
         HashSet<Integer> expectedChildren = new HashSet<>(List.of(tmpExpectedchildren));
 
         // add actualChildren
-        categoryService.addChilren(categoryDtoList);
+        categoryServiceImplement.addChilren(categoryDtoList);
         HashSet<Integer> actualChildren = new HashSet<>(categoryDtoList.get(testCategoryId).getChildren());
 
         assertIterableEquals(actualChildren,expectedChildren);
@@ -145,7 +145,7 @@ public class CategoryServiceTest {
         HashSet<Integer> expectedChildren = new HashSet<>(List.of(tmpExpectedchildren));
 
         // add actualChildren
-        categoryService.addChilren(categoryDtoList);
+        categoryServiceImplement.addChilren(categoryDtoList);
         HashSet<Integer> actualChildren = new HashSet<>(categoryDtoList.get(testCategoryId).getChildren());
 
         assertIterableEquals(actualChildren,expectedChildren);
@@ -160,7 +160,7 @@ public class CategoryServiceTest {
         HashSet<Integer> expectedChildren = new HashSet<>(List.of(tmpExpectedchildren));
 
         // add actualChildren
-        categoryService.addChilren(categoryDtoList);
+        categoryServiceImplement.addChilren(categoryDtoList);
         HashSet<Integer> actualChildren = new HashSet<>(categoryDtoList.get(testCategoryId).getChildren());
 
         assertIterableEquals(actualChildren,expectedChildren);
@@ -175,7 +175,7 @@ public class CategoryServiceTest {
         HashSet<Integer> expectedChildren = new HashSet<>(List.of(tmpExpectedchildren));
 
         // add actualChildren
-        categoryService.addChilren(categoryDtoList);
+        categoryServiceImplement.addChilren(categoryDtoList);
         HashSet<Integer> actualChildren = new HashSet<>(categoryDtoList.get(testCategoryId).getChildren());
 
         assertIterableEquals(actualChildren,expectedChildren);
