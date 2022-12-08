@@ -2,7 +2,7 @@ package com.example.restapi.implement.product;
 
 import com.example.restapi.domain.product.Product;
 import com.example.restapi.domain.product.ProductService;
-import com.example.restapi.implement.category.CategoryService;
+import com.example.restapi.implement.category.CategorySevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +27,7 @@ public class ProductRestController {
      ProductService productService;
 
     @Autowired
-    CategoryService categoryService;
+    CategorySevice categoryService;
     @GetMapping("/api/products")
     public ProductResponse getProductByCategory(
             @RequestParam(value ="pageNo", defaultValue = "0", required = false ) int pageNo,
