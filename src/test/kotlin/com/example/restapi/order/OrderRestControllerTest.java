@@ -50,7 +50,8 @@ public class OrderRestControllerTest {
         //HttpResponse -> Jwt -> customerId(Email)
         HttpServletRequest request = null;
        //  Mockito.when(customerService.getIdfromJwtToken(request)).thenReturn(3);
-        // todo スタブ化ができない。
+        // todo SpringSecurityの挙動が謎すぎて、コントローラーの単体テストが書けない。
+        // todo 一旦保留にしてSpringSecurityの単体テストを片づける。
         Integer customerId = 3;
         Mockito.doReturn(3).when(customerService.getIdfromJwtToken(request));
 
