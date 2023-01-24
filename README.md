@@ -12,9 +12,24 @@ https://github.com/RYA234/ecshop_front_react
 # ドメイン
 ## ユースケース
 
+### 認証機能
+![img.png](image/authentication_usecase.png)
 
-商品一覧機能</br>
-購入機能</br>
+### ユーザー登録機能
+![Test Image 2](/image/userRegister_usecase.png)
+
+### 商品機能
+![Test Image 3](/image/product_useCase.png)
+
+### 買い物カゴ機能
+![img.png](image/cartItem_usecase.png)
+### 決済機能
+
+
+### 注文機能
+
+
+
 
 
 # 非ドメイン
