@@ -50,4 +50,16 @@ public class Customer {
 
     public Customer() {
     }
+
+    public Customer( String email,String password) {
+        this.password = password;
+        this.email = email;
+    }
+
+    public Customer(String email,String password,String verificationCode, boolean enabled) {
+        this.password = password;
+        this.email = email;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
+    }
 }

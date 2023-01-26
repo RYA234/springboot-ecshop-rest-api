@@ -11,14 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 public interface CustomerService {
         public LoginDto findByEmail();
 
-        // registerUser
+        // ユーザー登録
+        public Customer registerCustomer(String email,String password);
 
-        //
+        // 認証コードを使って、ユーザー情報を認証済みにする。
+        public boolean verify(String verificationCode);
 
         // loginUser
 
         // JwtトークンからCustomerのidを取得する関数
         // ユーケース上ではCartitemとOrderで使われる
         public Integer getIdfromJwtToken(HttpServletRequest request);
+
+
+
 
 }
