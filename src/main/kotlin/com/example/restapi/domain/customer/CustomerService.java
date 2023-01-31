@@ -14,7 +14,7 @@ public interface CustomerService {
         // ユーザー登録
         public Customer registerCustomer(String email,String password);
 
-        // 認証コードを使って、ユーザー情報を認証済みにする。
+        // 認証コードを引数として、ユーザー情報を認証済みにする。
         public boolean verify(String verificationCode);
 
         // loginUser
@@ -22,8 +22,6 @@ public interface CustomerService {
         // JwtトークンからCustomerのidを取得する関数
         // ユーケース上ではCartitemとOrderで使われる
         public Integer getIdfromJwtToken(HttpServletRequest request);
-
-
 
 
 }

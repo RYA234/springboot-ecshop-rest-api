@@ -23,7 +23,7 @@ public class CustomerRepositoryTest {
     @DisplayName("Customerを引数とし、saveを実行したとき、Customerが保存される。")
     public void givenCustomer_whenSave_thenSaveDataBase() {
         // given-precondition or Setup
-        Customer newCustomer = new Customer(1,"pass","test@gmail.com","hogehoge",false);
+        Customer newCustomer = new Customer("pass","test@gmail.com","hogehoge",false);
         //when - action or the behavior that we are going test
         customerRepository.save(newCustomer);
         //then - verify the output

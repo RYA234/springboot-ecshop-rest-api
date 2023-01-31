@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -23,26 +25,29 @@ public class CustomerServiceTest {
     @MockBean
     private CustomerRepository customerRepository;
 
+    @MockBean
+   PasswordEncoder passwordEncoder;
+
     // コンストラクタ インジェクション
     @InjectMocks
     private CustomerServiceImplement customerServiceImplement;
 
     @Test
-    @DisplayName("Emailアドレス、パスワードを引数とし、registerCustomerを実行したとき、データベースにユーザー情報が保存される。")
-    public void givenEmailAndPassword_whenRegisterCustomer_then() {
+    @DisplayName("Emailアドレス、パスワードを引数とし、registerCustomerを実行したとき、データベースにユーザー情報が保存される。パスワードは暗号化され、認証コードが生成される")
+    public void givenEmailAndPassword_whenRegisterCustomer_thenSaveCustomer() {
         // given-precondition or Setup
         String expectedEmailAddress = "test@gmail.com";
         String expectedPassword = "password";
         Customer newCustomer = new Customer(expectedEmailAddress, expectedPassword);
-
-        Customer actualCustomer = new Customer();
+        BCryptPasswordEncoder mockPasswordEncoder = new BCryptPasswordEncoder();
         // Repositoryをモック化する。
-        Mockito.doReturn(actualCustomer).when(customerRepository).save(newCustomer);
+        Mockito.doReturn(null).when(customerRepository).save(newCustomer);
+        Mockito.doReturn(mockPasswordEncoder.encode(expectedPassword)).when(passwordEncoder).encode(expectedPassword);
         //when - action or the behavior that we are going test
-        actualCustomer = customerServiceImplement.registerCustomer(expectedEmailAddress, expectedPassword);
+        Customer  actualCustomer = customerServiceImplement.registerCustomer(expectedEmailAddress, expectedPassword);
         //then - verify the output
         assertThat(actualCustomer.getEmail()).isEqualTo(expectedEmailAddress);
-        assertThat(actualCustomer.getPassword()).isEqualTo(expectedPassword);
+        assertThat(actualCustomer.getPassword()).isNotEqualTo(expectedPassword);
         assertThat(actualCustomer.isEnabled()).isFalse();
         assertThat(actualCustomer.getVerificationCode().length()).isEqualTo(64);
     }

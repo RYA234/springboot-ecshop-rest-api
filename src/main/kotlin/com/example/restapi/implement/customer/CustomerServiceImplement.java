@@ -6,12 +6,15 @@ import com.example.restapi.domain.customer.CustomerService;
 import com.example.restapi.implement.security.JwtTokenProvider;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Service
+@Transactional
 public class CustomerServiceImplement implements CustomerService {
 
     @Autowired
@@ -20,6 +23,8 @@ public class CustomerServiceImplement implements CustomerService {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Override
     public LoginDto findByEmail() {
         return null;
@@ -28,8 +33,9 @@ public class CustomerServiceImplement implements CustomerService {
     @Override
     public Customer registerCustomer(String email, String password) {
         String randomCode = RandomString.make(64);
-        Customer newCustomer = new Customer(email, password, randomCode, false);
-        return customerRepository.save(newCustomer);
+        Customer newCustomer = new Customer(email, passwordEncoder.encode(password), randomCode, false);
+        customerRepository.save(newCustomer);
+        return newCustomer;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class CustomerServiceImplement implements CustomerService {
         if (customer == null || customer.isEnabled()) {
             return false;
         } else {
-            customerRepository.save(customer);
+            customerRepository.enabled(customer.getId());
             return true;
         }
 
