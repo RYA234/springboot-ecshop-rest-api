@@ -7,15 +7,14 @@ import com.example.restapi.implement.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomerRestController {
@@ -33,6 +32,11 @@ public class CustomerRestController {
     private CustomerService customerService;
     @Autowired
     private JwtTokenProvider tokenProvider;
+
+    @Autowired
+    private MailSender mailSender;
+
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     @PostMapping("/api/auth/signin")
     public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
@@ -67,5 +71,20 @@ public class CustomerRestController {
             return new ResponseEntity<>("認証コードが正しくありません",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("認証コードを承認しました。",HttpStatus.OK);
+    }
+    @PostMapping(value = "/api/auth/sendmail")
+    @ResponseBody
+    public void sendTestMail() {
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo("j264663@kanatech-west.ac.jp");// To
+        msg.setFrom("mryuabc@gmail.com");
+        String insertMessage = "Test from Spring Mail" + LINE_SEPARATOR;
+        insertMessage += "Test from Spring Mail" + LINE_SEPARATOR;
+
+        msg.setSubject("Test from Spring Mail");// Set Title
+        msg.setText(insertMessage);// Set Message
+        mailSender.send(msg);
+
     }
 }
