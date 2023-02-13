@@ -40,7 +40,7 @@ public class CartItemRestController {
     }
 
     @GetMapping("/api/cart/all")
-    public List<CartItemDto> listCartItems(HttpServletRequest request){
+    public CartItemResponse listCartItems(HttpServletRequest request){
         List<CartItemDto> cartItemDtoList = new ArrayList<>();
         //Get customerId from Jwt
         Integer customerId = customerService.getIdfromJwtToken(request);
