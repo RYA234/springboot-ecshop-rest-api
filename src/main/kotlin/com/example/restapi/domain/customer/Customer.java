@@ -20,6 +20,7 @@ import javax.persistence.*;
 @Data
 public class Customer {
 
+    // ID　データベースで使う
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)

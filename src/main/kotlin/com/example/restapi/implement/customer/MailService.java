@@ -39,7 +39,6 @@ public class MailService {
                     + "<head></head>"
                     + "<body>"
                     + "<h3>Hello " + sendMailInfo.get("toName") + "</h3>"
-                    + "<p><a href='" + sendMailInfo.get("link") + "'><img src='cid:logo'></a></p>"
                     +"<div>ECショップのユーザー仮登録が完了しました。下リンクをクリックして有効化してください</div>"
                     +"<a href=\"http://dadasdfasdada/\">ユーザの有効化</a>"
                     + "</body>"

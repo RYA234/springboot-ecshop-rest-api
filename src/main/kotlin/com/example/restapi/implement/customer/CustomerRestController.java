@@ -33,8 +33,7 @@ public class CustomerRestController {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private MailSender mailSender;
+
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
@@ -49,42 +48,29 @@ public class CustomerRestController {
         String token = tokenProvider.generateToken(authentication);
 
         return  ResponseEntity.ok(new JWTAuthResponse(token));
-        //return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 
 
 
     @PostMapping("/api/auth/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignupDto signupDto){
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequestBody signupRequestBody){
 
-        if(customerRepository.existsByEmail(signupDto.getEmail())){
+        if(customerRepository.existsByEmail(signupRequestBody.getEmail())){
             return new ResponseEntity<>("すでに登録されているEmailです。",HttpStatus.BAD_REQUEST);
         }
-        customerService.registerCustomer(signupDto.getEmail(),signupDto.getPassword());
+        customerService.registerCustomer(signupRequestBody.getEmail(), signupRequestBody.getPassword());
+
+
         return new ResponseEntity<>("Customer registered successfully",HttpStatus.OK);
     }
 
     @PutMapping("/api/auth/verify")
-    public ResponseEntity<?> verifyUser(  @RequestBody VerifyDto verifyDto){
-        if(!customerService.verify(verifyDto.verifyCode)){
+    public ResponseEntity<?> verifyUser(  @RequestBody VerifyRequestBody verifyRequestBody ){
+        if(!customerService.verify(verifyRequestBody.verifyCode)){
             return new ResponseEntity<>("認証コードが正しくありません",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("認証コードを承認しました。",HttpStatus.OK);
     }
-    @PostMapping(value = "/api/auth/sendmail")
-    @ResponseBody
-    public void sendTestMail() {
 
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("j264663@kanatech-west.ac.jp");// To
-        msg.setFrom("mryuabc@gmail.com");
-        String insertMessage = "Test from Spring Mail" + LINE_SEPARATOR;
-        insertMessage += "Test from Spring Mail" + LINE_SEPARATOR;
-
-        msg.setSubject("Test from Spring Mail");// Set Title
-        msg.setText(insertMessage);// Set Message
-        mailSender.send(msg);
-
-    }
 }

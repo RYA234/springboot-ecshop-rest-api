@@ -3,6 +3,6 @@ package com.example.restapi.implement.customer;
 import lombok.Data;
 
 @Data
-public class VerifyDto {
+public class VerifyRequestBody {
     String verifyCode;
 }
