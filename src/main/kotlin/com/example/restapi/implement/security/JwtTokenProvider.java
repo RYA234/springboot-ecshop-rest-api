@@ -75,6 +75,7 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         }catch (SignatureException ex){
+            int a = 1;
                 throw  new BlogAPIException(HttpStatus.BAD_REQUEST, "invalid JWT signature");
             }
         }

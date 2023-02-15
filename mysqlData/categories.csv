@@ -1,0 +1,13 @@
+id,alias,name,parent_id
+26,PC,PC,NULL
+27,desk,desk,26
+28,memori,memori,27
+29,Electron,Electron,NULL
+30,Camera,Camera,29
+31,Food,Food,NULL
+32,Meat,Meat,31
+33,Fish,Fish,31
+34,Vegetable,Vegetable,31
+35,DairyProduct,DairyProduct,31
+36,Cannning,Cannning,31
+37,Drink,Drink,31
