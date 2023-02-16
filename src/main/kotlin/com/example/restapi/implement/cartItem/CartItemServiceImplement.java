@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -40,10 +41,42 @@ public class CartItemServiceImplement  implements CartItemService {
         return updatedQuantity;
     }
     @Override
-    public List<CartItemDto> listCartItems(Integer customerId) {
+    public CartItemResponse listCartItems(Integer customerId) {
 
-        List<CartItem> cartItemList = cartItemRepository.findByCustomerId(customerId);
-        return cartItemList.stream().map(cartItem -> mapToDTO(cartItem)).collect(Collectors.toList());
+        List<CartItem> cartItems = cartItemRepository.findByCustomerId(customerId);
+        CartItemResponse cartItemResponse = new CartItemResponse();
+        List<CartItemDto> cartItemDtos = new ArrayList<>() ;
+        // setCartItemResponse
+        for(var cartItem:cartItems){
+            Product product = productRepository.getProductById(cartItem.getProductId());
+            CartItemDto cartItemDto=new CartItemDto(cartItem.getId(),cartItem.getCustomerId(),cartItem.getProductId(),cartItem.getQuantity(),product.getName(),product.getPrice(),product.getPrice()*(1+product.getTaxRate()));
+            cartItemDtos.add(cartItemDto);
+        }
+        cartItemResponse.setCartItemDtos(cartItemDtos);
+        // cal productCost
+        for(var cartItem :cartItems){
+            float miniSum = cartItem.getQuantity()*productRepository.getProductById(cartItem.getProductId()).getPrice();
+            cartItemResponse.setProductCost(cartItemResponse.getProductCost() + miniSum);
+        }
+        // cal shipping
+        if( cartItemResponse.getProductCost() <= 4000f){
+            cartItemResponse.setShippingCost(300);
+        }else{
+            cartItemResponse.setShippingCost(0);
+        }
+
+        // cal subtotal
+        cartItemResponse.setSubTotal(cartItemResponse.getProductCost() + cartItemResponse.getShippingCost());
+
+        // cal tax
+        for(var cartItem :cartItems){
+            float eachTax = cartItem.getQuantity()*productRepository.getProductById(cartItem.getProductId()).getPrice()*productRepository.getProductById(cartItem.getProductId()).getTaxRate();
+            cartItemResponse.setTax(cartItemResponse.getTax() + eachTax);
+        }
+        // cal total;
+        cartItemResponse.setTotal(cartItemResponse.getSubTotal() + cartItemResponse.getTax());
+        return cartItemResponse;
+//        return cartItemList.stream().map(cartItem -> mapToDTO(cartItem)).collect(Collectors.toList());
     }
     @Override
     public void updateQuantity(Integer productId, Integer quantity, Integer customerId) {

@@ -12,6 +12,8 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class CartItemRestController {
     @Autowired
     CartItemService cartItemService;
@@ -38,7 +40,7 @@ public class CartItemRestController {
     }
 
     @GetMapping("/api/cart/all")
-    public List<CartItemDto> listCartItems(HttpServletRequest request){
+    public CartItemResponse listCartItems(HttpServletRequest request){
         List<CartItemDto> cartItemDtoList = new ArrayList<>();
         //Get customerId from Jwt
         Integer customerId = customerService.getIdfromJwtToken(request);

@@ -88,6 +88,7 @@ public class CategoryServiceTest {
         actualCategoryList.add(new Category(12, "notebook","notebook",10));
         actualCategoryList.add(new Category(13, "ballpen","ballpen",10));
         actualCategoryList.add(new Category(14, "eraser","eraser",10));
+
         // do service
         Mockito.doReturn(actualCategoryList).when(repo).findAll();
 

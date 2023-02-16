@@ -3,10 +3,11 @@ package com.example.restapi.implement.product;
 import com.example.restapi.domain.product.Product;
 import com.example.restapi.domain.product.ProductService;
 import com.example.restapi.implement.category.CategoryService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -20,7 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @Entity: {@link  Product}
  * @UseCase: {@link ProductService}
  */
+
 @RestController
+//
+//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 public class ProductRestController {
 
     @Autowired
@@ -28,11 +33,12 @@ public class ProductRestController {
 
     @Autowired
     CategoryService categoryService;
+
     @GetMapping("/api/products")
     public ProductResponse getProductByCategory(
             @RequestParam(value ="pageNo", defaultValue = "0", required = false ) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue ="2", required = false) int pageSize,
-            @RequestParam(value = "category", defaultValue="32", required = false) int categoryId
+            @RequestParam(value = "pageSize", defaultValue ="4", required = false) int pageSize,
+            @RequestParam(value = "category", defaultValue="1", required = false) int categoryId
     ){
         ProductResponse productResponse;
         productResponse = productService.getProductsByCategory(pageNo,pageSize,categoryId);
