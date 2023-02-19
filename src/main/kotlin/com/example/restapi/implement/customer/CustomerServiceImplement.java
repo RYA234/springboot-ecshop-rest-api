@@ -107,7 +107,7 @@ public class CustomerServiceImplement implements CustomerService {
                     + "<body>"
                     + "<h3>Hello " + customerEmail + "</h3>"
                     +"<div>ECショップのユーザー仮登録が完了しました。下リンクをクリックして有効化してください</div>"
-                    +"<a href=http://localhost:3000/customer/verify/"+verificationCode+">ユーザの有効化</a>"
+                    +"<a href=http://127.0.0.1:3000/verify/"+verificationCode+">ユーザの有効化</a>"
                     + "</body>"
                     + "</html>";
 
