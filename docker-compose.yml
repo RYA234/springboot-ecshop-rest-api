@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecshopdb
+    networks:
+      springboot-mysql-net:
+#   MYSQLの初期データを設定
+    volumes:
+      - ./mysql/:/docker-entrypoint-initdb.d/
+
+# 以下コマンドを実行してspringboot-ecshop-api.jarを最新にしておくこと
+# mvn clean package
+  springboot-ecshop-api:
+    container_name: springboot-ecshop-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysqldb
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+networks:
+  springboot-mysql-net:
