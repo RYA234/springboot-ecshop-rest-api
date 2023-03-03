@@ -39,7 +39,7 @@ public class PaymentService {
         params.put("currency", paymentInfoRequest.getCurrency());
         params.put("payment_method_types", paymentMethodTypes);
 
-        params.put("payment_method", "pm_card_visa");
+//        params.put("payment_method", "pm_card_visa");
         return PaymentIntent.create(params);
     }
 
