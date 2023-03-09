@@ -1,4 +1,4 @@
-package com.example.restapi.implement.payment;
+package com.example.restapi.implement.order;
 
 import lombok.Data;
 
@@ -13,4 +13,10 @@ public class PaymentInfoRequest {
     private String currency;
 
     private String receiptEmail;
+
+    public PaymentInfoRequest(int amount, String currency, String receiptEmail) {
+        this.amount = amount;
+        this.currency = currency;
+        this.receiptEmail = receiptEmail;
+    }
 }

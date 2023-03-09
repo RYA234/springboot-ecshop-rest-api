@@ -7,10 +7,11 @@ import com.example.restapi.domain.order.OrderService;
 import com.example.restapi.domain.orderItem.OrderItem;
 import com.example.restapi.domain.orderItem.OrderItemRepository;
 import com.example.restapi.implement.cartItem.CartItemDto;
-import com.example.restapi.implement.payment.PaymentInfoRequest;
+import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +26,14 @@ public class OrderServiceImplement implements OrderService {
 
     @Autowired
     OrderItemRepository orderItemRepository;
-
     @Autowired
     OrderRepository orderRepository;
 
+    @Value("${stripe.key.secret}")
+    String secretKey;
     @Override
     public PaymentIntent createPaymentIntent(PaymentInfoRequest paymentInfoRequest) throws StripeException {
+        Stripe.apiKey= secretKey;
         List<String> paymentMethodTypes = new ArrayList<>();
         paymentMethodTypes.add("card");
         List<String> paymentMethod = new ArrayList<>();
@@ -51,7 +54,6 @@ public class OrderServiceImplement implements OrderService {
         Order order = new Order(customerId,amount, new Date(),0,true,false);
         orderRepository.save(order);
 
-        // cartItemsとorderの情報を元に顧客の。
         List<OrderItem> orderItems = new ArrayList<>();
         for(CartItemDto cartItemDto :cartItemDtos) {
            OrderItem aartItem  = new OrderItem();

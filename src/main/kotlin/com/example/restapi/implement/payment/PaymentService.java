@@ -1,5 +1,6 @@
 package com.example.restapi.implement.payment;
 
+import com.example.restapi.implement.order.PaymentInfoRequest;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -39,7 +40,7 @@ public class PaymentService {
         params.put("currency", paymentInfoRequest.getCurrency());
         params.put("payment_method_types", paymentMethodTypes);
 
-//        params.put("payment_method", "pm_card_visa");
+
         return PaymentIntent.create(params);
     }
 

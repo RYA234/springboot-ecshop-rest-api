@@ -94,6 +94,7 @@ public class WebSecurityConfig {
                 .antMatchers("/api/cart/**").authenticated()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/pay/**").permitAll()
+                .antMatchers("/api/order/**").permitAll()
                 .antMatchers("/v2/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()

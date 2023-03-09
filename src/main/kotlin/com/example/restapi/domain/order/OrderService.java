@@ -1,7 +1,7 @@
 package com.example.restapi.domain.order;
 
 import com.example.restapi.implement.cartItem.CartItemDto;
-import com.example.restapi.implement.payment.PaymentInfoRequest;
+import com.example.restapi.implement.order.PaymentInfoRequest;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import org.springframework.stereotype.Service;

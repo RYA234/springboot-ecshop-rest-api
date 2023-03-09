@@ -4,17 +4,12 @@ import com.example.restapi.domain.cartItem.CartItemService;
 import com.example.restapi.domain.customer.CustomerService;
 import com.example.restapi.domain.order.OrderService;
 import com.example.restapi.implement.cartItem.CartItemResponse;
-import com.example.restapi.implement.payment.PaymentInfoRequest;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,7 +26,7 @@ public class OrderRestController {
     @Autowired
     CustomerService customerService;
 
-    @PostMapping("/api/pay/preparePaymentIntent")
+    @PostMapping("/api/pay/payment-intent")
     public ResponseEntity<String> preparePayment(@RequestBody PaymentInfoRequest paymentInfoRequest)throws StripeException{
         PaymentIntent paymentIntent = orderService.createPaymentIntent(paymentInfoRequest);
         String paymentStr = paymentIntent.toJson();
