@@ -93,7 +93,7 @@ public class CartItemServiceImplementTest {
             expectedCartItemDtoList.add(ReflectionTestUtils.invokeMethod(cartItemServiceImplement,"mapToDTO",cartItemList.get(i)));
         }
         //when - action or the behavior that we are going test
-        List<CartItemDto>  actualCartItemDtoList = cartItemServiceImplement.listCartItems(custoemerId);
+        List<CartItemDto>  actualCartItemDtoList = (List<CartItemDto>) cartItemServiceImplement.listCartItems(custoemerId);
         //then - verify the output
         assert(expectedCartItemDtoList.equals(actualCartItemDtoList));
     }
