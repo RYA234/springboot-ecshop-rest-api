@@ -5,6 +5,7 @@ import com.example.restapi.domain.product.ProductService;
 import com.example.restapi.implement.category.CategoryService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,9 @@ import org.springframework.web.bind.annotation.*;
  * @UseCase: {@link ProductService}
  */
 
+
 @RestController
-//
-//@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "http://127.0.0.1:3000")
+@CrossOrigin(origins =  "${frontend.URL}")
 public class ProductRestController {
 
     @Autowired

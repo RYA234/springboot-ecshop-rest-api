@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "http://127.0.0.1:3000")
+@CrossOrigin(origins = "${frontend.URL}")
 public class CategoryRestController {
 
     @Autowired

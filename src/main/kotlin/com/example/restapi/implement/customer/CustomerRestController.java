@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "http://127.0.0.1:3000")
+@CrossOrigin(origins = "${frontend.URL}")
 public class CustomerRestController {
 
     @Autowired
