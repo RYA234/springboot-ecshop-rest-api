@@ -20,6 +20,7 @@ import javax.persistence.*;
 @Data
 public class Customer {
 
+    // ID　データベースで使う
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -32,4 +33,34 @@ public class Customer {
     // ログインするときのIDとして使用する
     @Column(nullable = false, unique = true, length = 45)
     private String email;
+
+    // 認証コード
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    // 初期値はfalse 認証が成功すると trueになる。
+    private boolean enabled;
+
+    public Customer(Integer id, String password, String email, String verificationCode, boolean enabled) {
+        this.id = id;
+        this.password = password;
+        this.email = email;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
+    }
+
+    public Customer() {
+    }
+
+    public Customer( String email,String password) {
+        this.password = password;
+        this.email = email;
+    }
+
+    public Customer(String email,String password,String verificationCode, boolean enabled) {
+        this.password = password;
+        this.email = email;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
+    }
 }
