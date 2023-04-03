@@ -14,12 +14,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 /**
- * @brief:
+ * &#064;brief:
+ *  &#064;description  Swagger Config
+ * &#064;See  <a href="http://localhost:5000/swagger-ui/#/">...</a>
  *
- * @description Swagger Config
- * @See <a href="http://localhost:5000/swagger-ui/#/">...</a>
- *
- * @Auther RYA234
+ * &#064;Auther  RYA234
  */
 @Configuration
 public class SwaggerConfig {
@@ -31,13 +30,28 @@ public class SwaggerConfig {
     }
     private ApiInfo apiInfo(){
         return new ApiInfo(
-                "Spring Boot Blog REST APIS",
-                "Spring Boot Blog REST API Documentation",
+                "ECショップAPIリファレンスページ",
+                "本ページはECショップのバックエンドAPIのリファレンスページです。\n\n" +
+                        "機能\n"+
+                        "ユーザー登録、ログイン機能機能(要認可)\n"+
+                        "カテゴリー表示機能(認可不要)\n"+
+                        "買い物カゴ機能(要認可)\n"+
+                        "クレジットカードでの決済機能(要認可)\n"+
+                        "商品一覧機能(認可不要)\n"+
+                        "認可認証方式:Authorizationヘッダを使った認証　Bearer認証\n"+
+                        "アクセストークンのフォーマットはJWT(Json Web Token)です。\n\n"+
+
+                        "認可を試す方法\n"+
+                        "1.ユーザーの認可認証機能のログインAPIを実行します。\n"+
+                        "2.実行するとResponse bodyにアクセストークンの値が入っておりそれをコピーします。\n"+
+                        "3.右側にあるAuthorizeと記されている緑色のアイコンをクリックして、アクセストークンの値をペーストします。\n"+
+                        "4.買い物カゴ機能APIの買い物カゴ表示APIを実行します。実行すると現在の買い物カゴ情報が表示されます。\n"
+                ,
                 "1",
-                "Term of service",
-                new Contact("Ramesh Fadatre", "www.javaguides.net","test.gmail.com"),
-                "Lisence of API",
-                "API licence URL",
+                "",
+                new Contact("RYA234-github", "https://github.com/RYA234/springboot-ecshop-rest-api",""),
+                "",
+                "",
                 Collections.emptyList()
         );
     }
@@ -45,8 +59,8 @@ public class SwaggerConfig {
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .securityContexts(Arrays.asList(securityContext())) // about JWT
-                .securitySchemes(Arrays.asList(apiKey()))           // about JWT
+                .securityContexts(List.of(securityContext())) // about JWT
+                .securitySchemes(List.of(apiKey()))           // about JWT
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
@@ -63,6 +77,6 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("global","accessEverything");
         AuthorizationScope[]  authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference("JWT",authorizationScopes));
+        return List.of(new SecurityReference("JWT", authorizationScopes));
     }
 }
