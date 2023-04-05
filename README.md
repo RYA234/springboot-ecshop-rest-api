@@ -3,7 +3,7 @@ BtoC向けのECショップのクローンサイトのバックエンド側で�
 実在するサイトでいうと、イ〇ンネットスーパーや、杏〇堂ネットスーパーのようなサイトです。</br>
 作っている理由としては以下の２点です。</br>
 1.Webアプリケーションを１通り実装できるようにする。</br>
-2.ネットスーパーを日頃使っているので、基本的な仕様は把握しているため。</br>
+2.ネットスーパーを日頃使っており、基本的な仕様は把握しているため。</br>
 
 フロント側のリポジトリは以下リンクです。</br>
 https://github.com/RYA234/ecshop_front_react
@@ -13,26 +13,37 @@ https://github.com/RYA234/ecshop_front_react
 ## ユースケース
 
 ### 認証機能
-![img.png](image/authentication_usecase.png)
+<p align="center">
+<img src="image/authentication_usecase.png" width="500" height="300">
+</p>
 
 ### ユーザー登録機能
-![Test Image 2](/image/userRegister_usecase.png)
+<p align="center">
+<img src="image/register_usecase.png" width="500" height="300">
+</p>
 
 ### 商品機能
-![Test Image 3](/image/product_useCase.png)
+<p align="center">
+<img src="image/product_useCase.png" width="500" height="300">
+</p>
 
 ### 買い物カゴ機能
-![img.png](image/cartItem_usecase.png)
+<p align="center">
+    <img src="image/cartItem_useCase.png" width="500" height="300">
+</p>
+
 ### 決済機能
+<p align="center">
+    <img src="image/checkout-useCase.png" width="500" height="300">
+</p>
 
 
-### 注文機能
 
 
 
 
 
-# 非ドメイン
+# 技術
 
 ## 開発環境
 | 名称               | バージョン     | 説明                                 |
@@ -51,9 +62,10 @@ https://github.com/RYA234/ecshop_front_react
 | Swagger          | 3.00      | APIドキュメンテーション化ツール                  |
 | Postman(デスクトップ版) |           | APIのE2Eテストするツール                    |
 | Github           |           | ソース管理                              |
+|Figma |  |図を書くために利用|
 
 ## ソフトウェアアーキテクチャー
-Controller-Service-Repositoryパターンのアーキテクチャです。
+
 
 
 
@@ -70,12 +82,15 @@ Controller-Service-Repositoryパターンのアーキテクチャです。
 
 ## MySQLでの設定
 
+
 ## SpringBootの起動方法
 
 
 
 # swaggerUI
 swaggerでUIを確認できます。
+
+
 
 
 # 実装した時のメモ
