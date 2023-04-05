@@ -8,11 +8,15 @@ BtoC向けのECショップのクローンサイトのバックエンド側で�
 フロント側のリポジトリは以下リンクです。</br>
 https://github.com/RYA234/ecshop_front_react
 
-
+デプロイ先のURL：
+SWaggerUIでAPIのドキュメントを確認できます。
+https://ecshoprest-backend.com/swagger-ui/
 # ドメイン
 ## ユースケース
 
 ### 認証機能
+認可認証方式:Authorizationヘッダを使った認証　Bearer認証　</br>
+アクセストークンのフォーマットはJWT(Json Web Token)です。
 <p align="center">
 <img src="image/authentication_usecase.png" width="500" height="300">
 </p>
@@ -24,22 +28,18 @@ https://github.com/RYA234/ecshop_front_react
 
 ### 商品機能
 <p align="center">
-<img src="image/product_useCase.png" width="500" height="300">
+<img src="image/product_usecase.png" width="500" height="300">
 </p>
 
 ### 買い物カゴ機能
 <p align="center">
-    <img src="image/cartItem_useCase.png" width="500" height="300">
+    <img src="image/cartItem_usecase.png" width="500" height="300">
 </p>
 
 ### 決済機能
 <p align="center">
-    <img src="image/checkout-useCase.png" width="500" height="300">
+    <img src="image/checkout-usecase.png" width="500" height="300">
 </p>
-
-
-
-
 
 
 
