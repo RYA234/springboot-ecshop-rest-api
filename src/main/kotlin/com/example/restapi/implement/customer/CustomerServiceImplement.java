@@ -48,6 +48,8 @@ public class CustomerServiceImplement implements CustomerService {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
+    @Value("${frontend.URL}")
+    private String frontendURL;
     @Override
     public Customer registerCustomer(String email, String password) {
         String randomCode = RandomString.make(64);
@@ -107,7 +109,7 @@ public class CustomerServiceImplement implements CustomerService {
                     + "<body>"
                     + "<h3>Hello " + customerEmail + "</h3>"
                     +"<div>ECショップのユーザー仮登録が完了しました。下リンクをクリックして有効化してください</div>"
-                    +"<a href=http://127.0.0.1:3000/verify/"+verificationCode+">ユーザの有効化</a>"
+                    +"<a href="+frontendURL+"/verify/"+verificationCode+">ユーザの有効化</a>"
                     + "</body>"
                     + "</html>";
 

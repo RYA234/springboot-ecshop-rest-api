@@ -4,6 +4,7 @@ import com.example.restapi.domain.product.Product;
 import com.example.restapi.domain.product.ProductService;
 import com.example.restapi.implement.category.CategoryService;
 import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,7 @@ import javax.websocket.server.PathParam;
 @Api(value = "ProductRestController", tags = "商品情報に関するAPI　認証は不要")
 @RestController
 @CrossOrigin(origins =  "${frontend.URL}")
+
 public class ProductRestController {
 
     @Autowired
@@ -59,12 +61,14 @@ public class ProductRestController {
     @ApiIgnore
     @ApiOperation(value = "商品情報を一件表示するAPI。",notes="商品詳細画面を表示するAPIです。尚フロントエンドが側では未実装です。")
     @RequestMapping(value = "/api/products/", method = RequestMethod.GET,produces = "application/json")
+
     public ProductDto getProductById(
             @ApiParam(name="id",value = "商品ID")
             @RequestParam(value ="id",defaultValue = "1", required = false) int productId
     ){
         ProductDto productDto;
         productDto = productService.getProductById(productId);
+
         return productDto;
     }
 
